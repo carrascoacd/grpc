@@ -262,7 +262,9 @@ defmodule GRPC.Client.Connection do
         {_key, %Channel{} = ch} ->
           adapter.disconnect(ch)
 
-        {_key, {:error, _reason}} ->
+        {key, {:error, reason}} ->
+          Logger.warning("Failed to disconnect channel: #{inspect(key)}: #{inspect(reason)}")
+
           :ok
       end)
 
